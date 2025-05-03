@@ -43,6 +43,8 @@ class MultipleLinearRegression:
     def sum_of_squared_errors(self, y, pred):
         """Calculate SSE between actual and predicted values"""
         return np.sum((y - pred) ** 2)
+    
+    
 
     def anova(self):
         """Calculate ANOVA table for regression"""
@@ -82,6 +84,50 @@ class MultipleLinearRegression:
             'F': [F, np.nan, np.nan],
             'p-value': [p_value, np.nan, np.nan]
         })
+        
+        
+    """Hossam's code"""    
+        
+    def hypothesis_test(self):
+        """Perform hypothesis testing for each coefficient (t-test)"""
+        if self.coefficients is None:
+            raise ValueError("Model must be fitted first")
+    
+        n, k_plus_1 = self.X_train.shape  # k+1 includes intercept
+        k = k_plus_1 - 1  # exclude intercept for degree of freedom
+        df_resid = n - k_plus_1
+
+        # Estimate variance of residuals
+        y_pred = self.predict(self.X_train[:, 1:])  # exclude intercept in prediction
+        residuals = self.y_train - y_pred
+        s_squared = np.sum(residuals ** 2) / df_resid
+
+        # Variance-covariance matrix of coefficients
+        XtX_inv = np.linalg.inv(np.dot(self.X_train.T, self.X_train))
+        var_betas = s_squared * np.diag(XtX_inv)
+
+        # Standard errors
+        se_betas = np.sqrt(var_betas)
+
+        # t-statistics
+        t_stats = self.coefficients / se_betas
+
+        # two-tailed p-values
+        from scipy.stats import t
+        p_values = 2 * (1 - t.cdf(np.abs(t_stats), df=df_resid))
+
+        # Build a summary table
+        summary = pd.DataFrame({
+            'Coefficient': self.coefficients,
+            'Standard Error': se_betas,
+            't-statistic': t_stats,
+            'p-value': p_values
+        })
+    
+        return summary
+    
+
+
 
     def plot(self, X, y):
         """3D plot for models with exactly 2 features"""
