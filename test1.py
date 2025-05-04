@@ -1,5 +1,5 @@
 
-from fit_predict_plot import MultipleLinearRegression
+from MultipleLinearRegression import MultipleLinearRegression
 import numpy as np
 
 
