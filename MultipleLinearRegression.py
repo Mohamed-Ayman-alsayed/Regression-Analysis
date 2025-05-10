@@ -137,20 +137,20 @@ class MultipleLinearRegression:
         n, p = self.X_train.shape  # p includes intercept
         df = n - p
         XtX_inv = np.linalg.inv(self.X_train.T @ self.X_train)
-    
-        # تقدير التباين
+
+        # Calculate critical value
         if sigma is None:
             sigma_hat = np.sqrt(np.sum(self.residuals ** 2) / df)
             crit_value = stats.t.ppf(1 - alpha / 2, df)
         else:
             sigma_hat = sigma
-        crit_value = stats.norm.ppf(1 - alpha / 2)
-    
-        # حساب الخطأ المعياري والهامش
+            crit_value = stats.norm.ppf(1 - alpha / 2)
+
+        # Calculate standard errors and margins
         std_errors = np.sqrt(np.diag(XtX_inv)) * sigma_hat
         margins = crit_value * std_errors
 
-        # فترات الثقة للمعاملات
+        # Confidence intervals for coefficients
         lower_bounds = self.coefficients - margins
         upper_bounds = self.coefficients + margins
         coef_names = ['Intercept'] + [f'X{i}' for i in range(1, p)]
@@ -162,7 +162,7 @@ class MultipleLinearRegression:
             f'{100*(1-alpha):.1f}% CI Upper': upper_bounds
         })
 
-        # فترات التنبؤ
+        # Prediction intervals
         pred_df = None
         if X_new is not None:
             X_new = np.atleast_2d(X_new)
@@ -170,7 +170,7 @@ class MultipleLinearRegression:
                 X_new = np.c_[np.ones((X_new.shape[0], 1)), X_new]
             elif X_new.shape[1] != p:
                 raise ValueError(f"Expected {p - 1} features, got {X_new.shape[1]}")
-        
+    
             y_preds = X_new @ self.coefficients
             se_preds = np.sqrt(np.sum(X_new @ XtX_inv * X_new, axis=1)) * sigma_hat
             margin_preds = crit_value * se_preds
@@ -178,7 +178,7 @@ class MultipleLinearRegression:
             upper_preds = y_preds + margin_preds
 
             pred_df = pd.DataFrame({
-            '   Prediction': y_preds,
+                'Prediction': y_preds,
                 f'{100*(1-alpha):.1f}% PI Lower': lower_preds,
                 f'{100*(1-alpha):.1f}% PI Upper': upper_preds
             })
