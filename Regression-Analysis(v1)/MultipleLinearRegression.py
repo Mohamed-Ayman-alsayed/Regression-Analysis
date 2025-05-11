@@ -46,88 +46,85 @@ class MultipleLinearRegression:
     
     
 
-    def anova(self, X, y, feature_names=None):
-        """Calculate ANOVA table for simple regression on each feature separately"""
-        if feature_names is None:
-            feature_names = [f"X{i}" for i in range(X.shape[1])]
-
-        for idx in range(X.shape[1]):
-            Xi = X[:, idx].reshape(-1, 1)  # take one feature
-            self.fit(Xi, y)
-
-            n = Xi.shape[0]
-            y_pred = self.predict(Xi)
-            y_mean = np.mean(y)
-
-            # Calculate sums of squares
-            SST = np.sum((y - y_mean) ** 2)
-            SSR = np.sum((y_pred - y_mean) ** 2)
-            SSE = np.sum((y - y_pred) ** 2)
-
-            # Degrees of freedom
-            df_reg = 1
-            df_resid = n - 2
-            df_total = n - 1
-
-            # Mean squares
-            MSR = SSR / df_reg
-            MSE = SSE / df_resid
-
-            # F-statistic and p-value
-            F = MSR / MSE
-            p_value = stats.f.sf(F, df_reg, df_resid)
-
-            # Output
-            print(f"ANOVA for Feature: {feature_names[idx]}")
-            print(pd.DataFrame({
-                'Source': ['Regression', 'Residual', 'Total'],
-                'SS': [SSR, SSE, SST],
-                'df': [df_reg, df_resid, df_total],
-                'MS': [MSR, MSE, None],
-                'F': [F, None, None],
-                'p-value': [p_value, None, None]
-            }))
-
+    def anova(self):
+        """Calculate ANOVA table for regression"""
+        if self.coefficients is None:
+            raise ValueError("Model must be fitted first")
+        
+        n = self.X_train.shape[0]
+        k = self.X_train.shape[1] - 1  # Exclude intercept
+        
+        y_pred = self.predict(self.X_train[:, 1:])  # Exclude intercept column
+        y_mean = np.mean(self.y_train)
+        
+        # Calculate sums of squares
+        SST = np.sum((self.y_train - y_mean) ** 2)
+        SSR = np.sum((y_pred - y_mean) ** 2)
+        SSE = self.sum_of_squared_errors(self.y_train, y_pred)
+        
+        # Degrees of freedom
+        df_reg = k
+        df_resid = n - k - 1
+        df_total = n - 1
+        
+        # Mean squares
+        MSR = SSR / df_reg
+        MSE = SSE / df_resid
+        
+        # F-statistic and p-value
+        F = MSR / MSE
+        p_value = stats.f.sf(F, df_reg, df_resid)
+        
+        # Create ANOVA table
+        return pd.DataFrame({
+            'Source': ['Regression', 'Residual', 'Total'],
+            'SS': [SSR, SSE, SST],
+            'df': [df_reg, df_resid, df_total],
+            'MS': [MSR, MSE, np.nan],
+            'F': [F, np.nan, np.nan],
+            'p-value': [p_value, np.nan, np.nan]
+        })
         
         
     """Hossam's code"""    
+        
+    def hypothesis_test(self):
+        """Perform hypothesis testing for each coefficient (t-test)"""
+        if self.coefficients is None:
+            raise ValueError("Model must be fitted first")
     
-    def hypothesis_test(self, X, y, feature_names=None):
-        """Perform hypothesis testing for simple regression on each feature separately"""
-        if feature_names is None:
-            feature_names = [f"X{i}" for i in range(X.shape[1])]
+        n, k_plus_1 = self.X_train.shape  # k+1 includes intercept
+        k = k_plus_1 - 1  # exclude intercept for degree of freedom
+        df_resid = n - k_plus_1
 
-        for idx in range(X.shape[1]):
-            Xi = X[:, idx].reshape(-1, 1)  # take one feature
-            self.fit(Xi, y)
+        # Estimate variance of residuals
+        y_pred = self.predict(self.X_train[:, 1:])  # exclude intercept in prediction
+        residuals = self.y_train - y_pred
+        s_squared = np.sum(residuals ** 2) / df_resid
 
-            n = Xi.shape[0]
-            df_resid = n - 2
+        # Variance-covariance matrix of coefficients
+        XtX_inv = np.linalg.inv(np.dot(self.X_train.T, self.X_train))
+        var_betas = s_squared * np.diag(XtX_inv)
 
-            y_pred = self.predict(Xi)
-            residuals = y - y_pred
-            s_squared = np.sum(residuals ** 2) / df_resid
+        # Standard errors
+        se_betas = np.sqrt(var_betas)
 
-            XtX_inv = np.linalg.inv(self.X_train.T @ self.X_train)
-            var_betas = s_squared * np.diag(XtX_inv)
+        # t-statistics
+        t_stats = self.coefficients / se_betas
 
-            se_betas = np.sqrt(var_betas)
-            t_stats = self.coefficients / se_betas
+        # two-tailed p-values
+        from scipy.stats import t
+        p_values = 2 * (1 - t.cdf(np.abs(t_stats), df=df_resid))
 
-            from scipy.stats import t
-            p_values = 2 * (1 - t.cdf(np.abs(t_stats), df=df_resid))
-
-            # Output
-            print(f"Hypothesis Test for Feature: {feature_names[idx]}")
-            coef_names = ['Intercept', feature_names[idx]]
-            print(pd.DataFrame({
-                'Coefficient': coef_names,
-                'Estimate': self.coefficients,
-                'Std Error': se_betas,
-                't-statistic': t_stats,
-                'p-value': p_values
-            }))
-
+        # Build a summary table
+        summary = pd.DataFrame({
+            'Coefficient': self.coefficients,
+            'Standard Error': se_betas,
+            't-statistic': t_stats,
+            'p-value': p_values
+        })
+    
+        return summary
     
     
     
@@ -227,6 +224,6 @@ class MultipleLinearRegression:
         ax.set_title("Regression Plane vs Actual Data Points")
         plt.legend()
         plt.show()
-        print("Plotting complete")
         
         
+print("Plotting complete")
