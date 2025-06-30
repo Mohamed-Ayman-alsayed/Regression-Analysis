@@ -68,7 +68,6 @@ Computes:
 
 ## 👥 Team Contributions
 
-```markdown
 | 👤 **Member**       | ⚙️ **Role & Contribution**                                                                 | 🔗 **Profile**                                 |
 |--------------------|---------------------------------------------------------------------------------------------|------------------------------------------------|
 | 🧠 **Mohamed Hossam**  | Implemented **Simple**, **Multiple**, **Polynomial**, and **Logistic Regression** models     | [LinkedIn](https://www.linkedin.com/in/yourprofile) |
