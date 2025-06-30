@@ -189,44 +189,51 @@ class MultipleLinearRegression:
         return coef_df, pred_df
     
     
-    
-
-
+        
+  
+        
+        
+        
     def plot(self, X, y):
-        """3D plot for models with exactly 2 features"""
+        """3D interactive plot for models with exactly 2 features"""
+        import numpy as np
+        import matplotlib.pyplot as plt
+        from mpl_toolkits.mplot3d import Axes3D
+
+        # Check if model is fitted
         if self.coefficients is None:
             raise ValueError("Model not fitted yet")
-        
+    
         X = np.array(X)
         y = np.array(y)
-        
-        if X.shape[1] != 2:  # Fixed from original 12 to 2
+    
+        if X.shape[1] != 2:
             raise ValueError("Plotting requires exactly two features")
-        
+    
         # Create grid for surface plot
         x1_range = np.linspace(X[:, 0].min(), X[:, 0].max(), 50)
         x2_range = np.linspace(X[:, 1].min(), X[:, 1].max(), 50)
         x1_grid, x2_grid = np.meshgrid(x1_range, x2_range)
-        
-        # Calculate predicted values for grid
+    
+        # Predict values over grid
         grid_matrix = np.c_[x1_grid.ravel(), x2_grid.ravel()]
         y_grid = self.predict(grid_matrix).reshape(x1_grid.shape)
-        
-        # Create 3D plot
-        fig = plt.figure(figsize=(12, 8))
+    
+        # Create interactive 3D plot
+        fig = plt.figure(figsize=(9, 7))
         ax = fig.add_subplot(111, projection='3d')
-        
-        # Plot surface and data points
+    
         ax.plot_surface(x1_grid, x2_grid, y_grid, alpha=0.5, color='yellow')
         ax.scatter(X[:, 0], X[:, 1], y, color='blue', label='Actual Data')
-        
-        # Add labels and legend
+    
         ax.set_xlabel("Age")
         ax.set_ylabel("Experience")
         ax.set_zlabel("Income")
         ax.set_title("Regression Plane vs Actual Data Points")
-        plt.legend()
+        ax.legend()
+    
         plt.show()
         print("Plotting complete")
+
         
         
