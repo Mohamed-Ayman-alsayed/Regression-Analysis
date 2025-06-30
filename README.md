@@ -70,8 +70,8 @@ Computes:
 
 | 👤 **Member**       | ⚙️ **Role & Contribution**                                                                 | 🔗 **Profile**                                 |
 |--------------------|---------------------------------------------------------------------------------------------|------------------------------------------------|
-| 🧠 **Mohamed Hossam**  | Implemented **Simple**, **Multiple**, **Polynomial**, and **Logistic Regression** models     | [LinkedIn](https://www.linkedin.com/in/yourprofile) |
-| 🔍 **Teammate 1**      | Built the **K-Nearest Neighbors (KNN)** model and applied **K-Fold Cross-Validation**       | [LinkedIn](https://www.linkedin.com/in/teammate1)   |
-| 🤖 **Teammate 2**      | Developed and tuned **Support Vector Machine (SVM)** and **Neural Network (NN)** models     | [LinkedIn](https://www.linkedin.com/in/teammate2)   |
-| 📊 **Teammate 3**      | Designed advanced **visualizations**, conducted **error analysis**, and refined **docs**    | [LinkedIn](https://www.linkedin.com/in/teammate3)   |
-| 🧹 **Teammate 4**      | Led **data preprocessing**, handled **model evaluation**, and ensured **code integrity**     | [LinkedIn](https://www.linkedin.com/in/teammate4)   |
+| 🧠 **Mohamed Hossam Hossam**  | I implemented **Hypothesis testing**,     | [LinkedIn](https://www.linkedin.com/in/mohammed-hossam-6047ab30b/) |
+| 🔍 **Mohamed Yasser El-Nafrawy**      | Built the **K-Nearest Neighbors (KNN)** model and applied **K-Fold Cross-Validation**       | [LinkedIn](https://www.linkedin.com/in/mohamed-yasser-5a56672ab/)   |
+| 🤖 **Mohamed Ayman Elsayed**      | Developed and tuned **Support Vector Machine (SVM)** and **Neural Network (NN)** models     | [LinkedIn](https://www.linkedin.com/in/mohamed-ayman-52053328a/)   |
+| 📊 **Mohamed Ahmed Saad**      | Designed advanced **visualizations**, conducted **error analysis**, and refined **docs**    | [LinkedIn](https://www.linkedin.com/in/mohamed-ahmed-547420326/)   |
+| 🧹 **Mohamed Gehad Allam**      | Led **data preprocessing**, handled **model evaluation**, and ensured **code integrity**     | [LinkedIn](https://www.linkedin.com/in/mohamed-gehad-82a726329/)   |
