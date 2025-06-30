@@ -90,7 +90,7 @@ class MultipleLinearRegression:
 
         
         
-    """Hossam's code"""    
+       
     
     def hypothesis_test(self, X, y, feature_names=None):
         """Perform hypothesis testing for simple regression on each feature separately"""
@@ -131,7 +131,7 @@ class MultipleLinearRegression:
     
     
     
-    """ Yasser's code """
+    
     
     def interval_estimation(self, X_new=None, alpha=0.05, sigma=None):
         if self.coefficients is None:
@@ -221,9 +221,9 @@ class MultipleLinearRegression:
         ax.scatter(X[:, 0], X[:, 1], y, color='blue', label='Actual Data')
         
         # Add labels and legend
-        ax.set_xlabel("Feature 1")
-        ax.set_ylabel("Feature 2")
-        ax.set_zlabel("Target")
+        ax.set_xlabel("Age")
+        ax.set_ylabel("Experience")
+        ax.set_zlabel("Income")
         ax.set_title("Regression Plane vs Actual Data Points")
         plt.legend()
         plt.show()
