@@ -66,12 +66,34 @@ Computes:
 
 ---
 
+## Project Structure
+
+```text
+📦Regression-Analysis
+ ┣ 📂data
+ ┃ ┗ 📜Income.csv
+ ┣ 📂src
+ ┃ ┣ 📜MultipleLinearRegression.py
+ ┃ ┗ 📜test.ipynb
+ ┣ 📜LICENCE
+ ┣ 📜README.md
+ ┗ 📜requirements.txt
+ ```
+
+ ---
+
+## 📃 License
+
+This project is licensed for academic and educational use.
+
+---
+
 ## 👥 Team Contributions
 
 | 👤 **Member**       | ⚙️ **Role & Contribution**                                                                 | 🔗 **Profile**                                 |
 |--------------------|---------------------------------------------------------------------------------------------|------------------------------------------------|
-| 🧠 **Mohamed Hossam Hossam**  | I implemented **Hypothesis testing**,     | [LinkedIn](https://www.linkedin.com/in/mohammed-hossam-6047ab30b/) |
-| 🔍 **Mohamed Yasser El-Nafrawy**      | Built the **K-Nearest Neighbors (KNN)** model and applied **K-Fold Cross-Validation**       | [LinkedIn](https://www.linkedin.com/in/mohamed-yasser-5a56672ab/)   |
-| 🤖 **Mohamed Ayman Elsayed**      | Developed and tuned **Support Vector Machine (SVM)** and **Neural Network (NN)** models     | [LinkedIn](https://www.linkedin.com/in/mohamed-ayman-52053328a/)   |
-| 📊 **Mohamed Ahmed Saad**      | Designed advanced **visualizations**, conducted **error analysis**, and refined **docs**    | [LinkedIn](https://www.linkedin.com/in/mohamed-ahmed-547420326/)   |
-| 🧹 **Mohamed Gehad Allam**      | Led **data preprocessing**, handled **model evaluation**, and ensured **code integrity**     | [LinkedIn](https://www.linkedin.com/in/mohamed-gehad-82a726329/)   |
+| 🧠 **Mohamed Hossam Darwish**  | Implemented hypothesis testing using t-distributions     | [LinkedIn](https://www.linkedin.com/in/mohammed-hossam-6047ab30b/) |
+| 🔍 **Mohamed Yasser El-Nafrawy**      | Created confidence/prediction interval estimators | [LinkedIn](https://www.linkedin.com/in/mohamed-yasser-5a56672ab/)   |
+| 🤖 **Mohamed Ayman Elsayed**      | Developed ANOVA tables for variance analysis    | [LinkedIn](https://www.linkedin.com/in/mohamed-ayman-52053328a/)   |
+| 📊 **Mohamed Ahmed Saad**      | Designed and fitted core regression models   | [LinkedIn](https://www.linkedin.com/in/mohamed-ahmed-547420326/)   |
+| 🧹 **Mohamed Gehad Allam**      | Built prediction models and 3D visualizations    | [LinkedIn](https://www.linkedin.com/in/mohamed-gehad-82a726329/)   |
